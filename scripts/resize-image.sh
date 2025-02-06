@@ -1,3 +1,9 @@
+allow_overwrite=$1
+
+if [ -z $allow_overwrite ]; then
+  read -p "Allow overwrite? (y/n, default: n): " allow_overwrite
+  allow_overwrite=${allow_overwrite:-n}
+fi
 
 find slides -type d -name 'img-original' -print | grep -v "templates/" | while read -r img_original_dir; do
   img_dir=$(echo $img_original_dir | sed 's/img-original/img/')
@@ -13,12 +19,15 @@ find slides -type d -name 'img-original' -print | grep -v "templates/" | while r
     filename_no_ext=$(echo $filename | sed 's/\.[^.]*$//')
     out_file=$img_dir/$filename_no_ext.webp
 
-    
+    if [ -f $out_file ] && [ $allow_overwrite != "y" ]; then
+      echo "File exists, skip"
+      continue
+    fi
+
     height=$(identify -format "%h" $file)
     resolution=1024
-    # if the image is already resized, skip
     if [ $height -le $resolution ]; then
-      echo "Skip resizing"
+      echo "Enough resolution, copy file"
       convert $file $out_file
       continue
     fi
