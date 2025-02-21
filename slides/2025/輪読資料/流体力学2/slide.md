@@ -6,7 +6,7 @@ description: 第1部 粘性流体と乱流の方程式 1.1(続き)-1.2
 math: mathjax
 author: Teruki TADA
 session: 輪読
-date: 2024-12-9
+date: 2025-02-21
 tags: 輪読
 thumbnail: img/wakkanai.webp
 paginate: true
@@ -104,7 +104,6 @@ $$
 ## 1.1 応力テンソル (続き)
 
 ![w:700](img/1-3.webp)
-
 
 ---
 
