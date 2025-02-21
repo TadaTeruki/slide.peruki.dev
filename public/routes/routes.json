@@ -1,19 +1,29 @@
 [
-{"sanitized_title":"スライドシステム再構築","src_path":"slides/2024/LT/slide-system","src_file":"slide.html","title":"スライドシステム再構築","description":"スライドの作成用システムを再構築しました","date":"2024-10-13","session":"未来祭LT 2024","tags":["LT","Marp","Svelte"],"thumbnail":"img/thumbnail.webp","theme":"peru24"}
+{"sanitized_title":"学習物理学入門-A1","src_path":"slides/2024/輪読資料/学習物理1","src_file":"slide.html","title":"学習物理学入門 A1","description":"A1 1.4-1.7の資料です。","date":"2024-12-2","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/hiei.webp","theme":"peru24doc2"}
 ,
 {"sanitized_title":"熱力学-現代的な視点から-第3章-3-7","src_path":"slides/2024/輪読資料/熱力学3","src_file":"slide.html","title":"熱力学 現代的な視点から 第3章 3-7","description":"第3章 等温操作とHelmholtzの自由エネルギー 3-7の資料です。","date":"2024-11-5","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/kanku.webp","theme":"peru24doc"}
 ,
-{"sanitized_title":"ゼロから作るDeepLearning5章1-2","src_path":"slides/2024/輪読資料/誤差逆1","src_file":"slide.html","title":"ゼロから作るDeepLearning5章1/2","description":"ゼロから作るDeepLearning 5章 誤差逆伝播法 5.1-5.3の資料です。","date":"2023-9-12","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/犬.webp","theme":"peru24doc"}
+{"sanitized_title":"巽友正-流体力学-第1章","src_path":"slides/2024/輪読資料/流体力学-試験版","src_file":"slide.html","title":"巽友正 流体力学 第1章","description":"第1章 流体と流体力学 の資料です。","date":"2024-12-9","session":"個人学習","tags":["個人学習"],"thumbnail":"img/esan.webp","theme":"peru24doc2"}
 ,
 {"sanitized_title":"熱力学-現代的な視点から-第6章","src_path":"slides/2024/輪読資料/熱力学6","src_file":"slide.html","title":"熱力学 現代的な視点から 第6章","description":"第6章 エントロピー 6-4, 6-5, 6-6 の資料です。","date":"2024-12-9","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/asahikawa.webp","theme":"peru24doc2"}
+,
+{"sanitized_title":"学習物理学入門-A4","src_path":"slides/2024/輪読資料/学習物理A4","src_file":"slide.html","title":"学習物理学入門 A4","description":"A4.1-A4.2の資料です。","date":"2025-1-13","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/okayama.webp","theme":"peru24doc2"}
+,
+{"sanitized_title":"ゼロから作るDeepLearning5章1-2","src_path":"slides/2024/輪読資料/誤差逆1","src_file":"slide.html","title":"ゼロから作るDeepLearning5章1/2","description":"ゼロから作るDeepLearning 5章 誤差逆伝播法 5.1-5.3の資料です。","date":"2023-9-12","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/犬.webp","theme":"peru24doc"}
+,
+{"sanitized_title":"ストロガッツ非線形ダイナミクスとカオス","src_path":"slides/2024/輪読資料/ストロガッツ","src_file":"slides.html","title":"ストロガッツ非線形ダイナミクスとカオス","description":"ストロガッツ 第4章 円周上の流れの資料です。","date":"2024-10-21","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/shikabe.webp","theme":"peru24doc"}
 ,
 {"sanitized_title":"ゼロから作るDeepLearning5章-2-2","src_path":"slides/2024/輪読資料/誤差逆2","src_file":"slide.html","title":"ゼロから作るDeepLearning5章 2/2","description":"ゼロから作るDeepLearning 5章 誤差逆伝播法 5.4-5.8の資料です。","date":"2023-9-30","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/keshiki.webp","theme":"peru24doc"}
 ,
 {"sanitized_title":"熱力学-現代的な視点から-第4章","src_path":"slides/2024/輪読資料/熱力学4","src_file":"slide.html","title":"熱力学 現代的な視点から 第4章","description":"第4章 断熱操作とエネルギーの資料です。","date":"2024-11-5","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/tomo.webp","theme":"peru24doc"}
 ,
-{"sanitized_title":"学習物理学入門-A1","src_path":"slides/2024/輪読資料/学習物理1","src_file":"slide.html","title":"学習物理学入門 A1","description":"A1 1.4-1.7の資料です。","date":"2024-12-2","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/hiei.webp","theme":"peru24doc2"}
-,
-{"sanitized_title":"ストロガッツ非線形ダイナミクスとカオス","src_path":"slides/2024/輪読資料/ストロガッツ","src_file":"slides.html","title":"ストロガッツ非線形ダイナミクスとカオス","description":"ストロガッツ 第4章 円周上の流れの資料です。","date":"2024-10-21","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/shikabe.webp","theme":"peru24doc"}
-,
 {"sanitized_title":"同期現象の科学:位相記述法","src_path":"slides/2024/輪読資料/同期現象","src_file":"slides.html","title":"同期現象の科学:位相記述法","description":"位相記述法 4.5の資料です。","date":"2024-11-24","session":"FUNAI輪読会","tags":["FUNAI"],"thumbnail":"img/akkeshi.webp","theme":"peru24doc"}
+,
+{"sanitized_title":"スライドシステム再構築","src_path":"slides/2024/LT/slide-system","src_file":"slide.html","title":"スライドシステム再構築","description":"スライドの作成用システムを再構築しました","date":"2024-10-13","session":"未来祭LT 2024","tags":["LT","Marp","Svelte"],"thumbnail":"img/thumbnail.webp","theme":"peru24"}
+,
+{"sanitized_title":"Physics-Informed-Deep-Learning-(Part-I)","src_path":"slides/2025/研究室活動/PINNs-part1","src_file":"slide.html","title":"Physics Informed Deep Learning (Part I)","description":"Physics Informed Deep Learning (Part I) Data-driven Solutions of Nonlinear Partial Differential Equations","date":"2025-01-14","session":"研究室活動","tags":["研究室活動"],"thumbnail":"img/tokyo.webp","theme":"peru24lab"}
+,
+{"sanitized_title":"Physics-Informed-Deep-Learning-(Part-II)","src_path":"slides/2025/研究室活動/PINNs-part2","src_file":"slide.html","title":"Physics Informed Deep Learning (Part II)","description":"Physics Informed Deep Learning (Part II) Data-driven Solutions of Nonlinear Partial Differential Equations","date":"2025-02-06","session":"研究室活動","tags":["研究室活動"],"thumbnail":"img/himeji.webp","theme":"peru24lab"}
+,
+{"sanitized_title":"流れの方程式","src_path":"slides/2025/輪読資料/流体力学2","src_file":"slide.html","title":"流れの方程式","description":"第1部 粘性流体と乱流の方程式 1.1(続き)-1.2","date":"2025-02-21","session":"輪読","tags":["輪読"],"thumbnail":"img/wakkanai.webp","theme":"peru24doc2"}
 ]
