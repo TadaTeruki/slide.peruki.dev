@@ -5,10 +5,10 @@ title: 新入生オリエンテーション 複雑系コース
 description: 新入生オリエンテーション
 math: mathjax
 author: Teruki TADA
-session: 新入生オリエンテーション
+session: 新入生オリエン
 date: 2025-04-06
 tags: 新入生オリエンテーション
-thumbnail: img/tokyo.webp
+thumbnail: img/himeji.webp
 paginate: true
 ---
 
