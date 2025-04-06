@@ -68,7 +68,7 @@ paginate: true
   - Project PLATEAU (国土交通省) 関連OSSの開発貢献
 
 もとの得意分野はソフトウェア開発 (GUI, CG等) だったが
-数理方面にも渡る幅広い視野を持ちたいと考え
+数理科学を含めた幅広い視野を持ちたいと考え
 複雑系コースを選択
 
 ![bg right:25% h:500](img/terrain.webp)
