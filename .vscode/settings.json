@@ -1,0 +1,7 @@
+{
+    "markdown.marp.themes": [
+        "public/themes/peru24.css",
+        "public/themes/peru24doc.css",
+        "public/themes/peru24lab.css"
+    ],
+}
