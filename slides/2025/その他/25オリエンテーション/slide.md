@@ -91,7 +91,7 @@ paginate: true
 - B3:「複雑系と情報処理」
 &emsp; 「応用データ解析」「システム情報科学実習」
 
-![bg right:25% h:500](img/burgers.webp)
+![bg right:27% h:400](img/burgers.webp)
 
 ---
 
