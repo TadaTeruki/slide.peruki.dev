@@ -7,7 +7,7 @@ math: mathjax
 author: Teruki TADA
 session: 研究室活動
 date: 2025-04-07
-tags: 輪読　詳解ディープラーニング
+tags: 研究室活動　輪読　詳解ディープラーニング
 thumbnail: img/nanae.webp
 paginate: true
 ---
