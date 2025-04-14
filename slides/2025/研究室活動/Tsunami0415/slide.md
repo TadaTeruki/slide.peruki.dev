@@ -99,8 +99,8 @@ paginate: true
 
 流体現象のシミュレーションに比べ高速な予測が可能、モデルの柔軟性もある
 
-ブラックボックスで物理的な裏付けが乏しく
-学習時の計算コストの考慮が必要であることが課題
+ブラックボックスで物理的な裏付けが乏しいほか
+学習にかかる計算コストの考慮が必要であることが課題
 
 ---
 
@@ -120,11 +120,141 @@ paginate: true
  *図は、あるシナリオでのシミュレーション結果の例*
  *図上: 断層すべり量の分布, 図下: 波高の分布*
 
- - 生成済みのシミュレーション結果を複数重ね合わせ
+ - 生成済みのシミュレーション結果を
+複数重ね合わせ (線型結合し)
 未知の地震パターンに対する津波の
 シミュレーション結果を生成
 
 ![bg right:28% w:350](img/nankai_81_000255_slip_dtopo.webp)
 
 ---
+
+重ね合わせに用いるシミュレーション結果への重みを
+ベイズ推定を用いて確率分布の形式で導出
+不確実性を考慮した予測を行う
+*このアプローチ自体は、Nomura et al. (2022)で同様に行われている*
+*ただし、こちらはあくまでデータベース検索のアプローチに基づく*
+
+![w:500](img/fig-7.webp)
+
+---
+
+# Methodology
+
+---
+
+## 背景知識: 観測装置 (gauges) について
+
+災害に関わる自然現象の観測網が日本各地に存在
+
+- 海底に設置/地震計や水圧計など搭載/
+地震・津波を対象
+  - S-net: 太平洋沖
+  - DONET (1,2): 南海トラフ沖
+ - 沖合に設置/波高計など搭載/波浪を対象
+   - NOWPHAS
+
+*右図: S-netによる海底観測網*
+*https://www.seafloor.bosai.go.jp/S-net/*
+
+以降、説明に用いる「観測点」は
+このような観測装置が存在する地点に対応
+
+![bg right:30%](img/gauges-snet.webp)
+
+---
+
+## シナリオ重ね合わせ (Scenario Superposition)
+
+シナリオ $j$ における観測点 ($N_g$個) ・時間 ($N_t$ステップ) ごとの
+波高データを次のように表す ($\mathbf{x}$ は$N_g$次元のベクトル):
+
+$$
+X_j = \left[ \mathbf{x}^j_{t_1}, \mathbf{x}^j_{t_2}, \cdots, \mathbf{x}^j_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
+$$
+
+同様に、観測器による観測データを次のように表す ($\mathbf{y}$ は$N_g$次元のベクトル):
+$$
+Y = \left[ \mathbf{y}_{t_1}, \mathbf{y}_{t_2}, \cdots, \mathbf{y}_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
+$$
+
+観測データを、事前に作成した$N_s$シナリオ分のシミュレーション結果を用いて
+次のような線形結合で近似する → **目標: 各シナリオへの重み $\mathbf{w}\in \mathbb{R}^{N_s}$の導出**
+
+$$Y = \sum_{j=1}^{N_s} w_j X_j$$
+
+---
+
+## 大まかな流れ
+
+- Offline Phase: $X$を低ランク近似により次元圧縮
+- Online Phase: 重み$\mathbf{w}$をベイズ推定により定める
+---
+
+## Offline Phase: $X$を低ランク近似により次元圧縮
+
+特異値分解 (SVD) により、データの次元を$r$まで落とした$X$の低ランク近似$X_r$を導出:
+
+$$X_r =  \Phi_r D_r V_r^{\mathrm{T}}$$
+
+ここで、$\Phi_r$は時間に依存せず固定の値を取る *なぜそう言えるのかまでは追えませんでした*
+時間$t$での$X_r$の各要素について、$D_r v_t^{j\mathrm{T}} = a_t^j$ とまとめ:
+
+$$\mathbf{x}_t^j \approx \Phi_r D_r v_t^{j\mathrm{T}} = \Phi_r a_t^j$$
+
+以上より、$\mathbf{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係は次のように表せる:
+
+$$\mathbf{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$$
+
+---
+
+**参考: 特異値分解**
+
+データを以下のように分解 ($D$は対角行列で、一意に定まる):
+
+$$X = \Phi D V^{\mathrm{T}}$$
+
+各成分を、$D$が次のようになるよう並べ替える: *主成分は大きな特異値$\sigma$をとる*
+
+$$
+D = 
+\begin{bmatrix}
+\sigma_1 & 0 & \cdots & 0 \\
+0 & \sigma_2 & \ddots & \vdots \\
+\vdots & \ddots & \ddots & 0 \\
+0 & \cdots & 0 & \sigma_{N}
+\end{bmatrix},
+\quad \text{where } \sigma_1 > \sigma_2 > \cdots > \sigma_{N}.
+$$
+
+$\sigma_{1:r}$以外の特異値を0とした$D_r$を用いて、$X$を近似する階数$r$の$X_r$を得る:
+*$X_r$は (フロベニウスノルムに基づくと) 元のデータを十分に近似することが知られている*
+
+$$X_r =  \Phi_r D_r V_r^{\mathrm{T}}$$
+
+---
+
+<!-- _class: smartblockquote -->
+
+## Online Phase: 重み$\mathbf{w}$をベイズ推定により定める
+
+> 目標とする$\mathbf{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係: $\mathbf{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$
+
+誤差$\varepsilon_t$を考慮し、次のように表す:
+*$\varepsilon_t$は観測誤差や次元圧縮による情報欠落、シミュレーション自体の予測誤差など様々な要因を内包*
+
+$$\mathbf{y}_t  \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j + \varepsilon_t$$
+
+---
+
+${\varepsilon }_{t}\sim \mathcal{N}\left(\mathbf{0},\,{\boldsymbol{\Sigma }}_{\varepsilon }\right)$と仮定し、行列形式で以下のように表す:
+
+$$\mathbf{y}_t = \Phi_r \mathbf{A}_t \mathbf{w} + \varepsilon_t$$
+
+ただし
+$${\boldsymbol{A}}_{t}=\left[\begin{array}{@{}cccc@{}}\hfill {a}_{t}^{j=1}\hfill & \hfill {a}_{t}^{j=2}\hfill & \hfill {\cdots}\hfill & \hfill {a}_{t}^{j={N}_{s}}\hfill \end{array}\right]\in {\mathbb{R}}^{r\times {N}_{s}}$$
+
+$$\boldsymbol{w}={\left\{\begin{array}{@{}cccc@{}}\hfill {w}^{j=1}\hfill & \hfill {w}^{j=2}\hfill & \hfill {\cdots}\hfill & \hfill {w}^{j={N}_{s}}\hfill \end{array}\right\}}^{\mathrm{T}}\in {\mathbb{R}}^{{N}_{s}}$$
+
+これは**ベイズ線形回帰**の標準的な形に落とし込まれている
 
