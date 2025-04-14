@@ -86,9 +86,7 @@ paginate: true
 
 ## 既存手法: 機械学習
 
-*WIP: もう少しちゃんと調べる*
-
-観測データから予測結果を直接導出 (学習)
+観測データからシミュレーション結果を学習
 
 - Mulia et al. (2022): MLP
 - Makinoshima et al. (2021), Rim et al. (2022): CNN
@@ -97,7 +95,7 @@ paginate: true
 
 - Alan et al. (2023): LSTM
 
-流体現象のシミュレーションに比べ高速な予測が可能、モデルの柔軟性もある
+シミュレーションに比べ高速な予測が可能
 
 ブラックボックスで物理的な裏付けが乏しいほか
 学習にかかる計算コストの考慮が必要であることが課題
@@ -136,6 +134,9 @@ paginate: true
 *ただし、こちらはあくまでデータベース検索のアプローチに基づく*
 
 ![w:500](img/fig-7.webp)
+
+*提案手法のアプローチ自体はデータベース検索に近いが*
+*既存のシミュレーション結果を補間するようなデータを出力の候補として考慮できる*
 
 ---
 
@@ -257,4 +258,6 @@ $${\boldsymbol{A}}_{t}=\left[\begin{array}{@{}cccc@{}}\hfill {a}_{t}^{j=1}\hfill
 $$\boldsymbol{w}={\left\{\begin{array}{@{}cccc@{}}\hfill {w}^{j=1}\hfill & \hfill {w}^{j=2}\hfill & \hfill {\cdots}\hfill & \hfill {w}^{j={N}_{s}}\hfill \end{array}\right\}}^{\mathrm{T}}\in {\mathbb{R}}^{{N}_{s}}$$
 
 これは**ベイズ線形回帰**の標準的な形に落とし込まれている
+
+---
 
