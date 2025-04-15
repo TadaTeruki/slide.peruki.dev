@@ -374,7 +374,7 @@ $${\boldsymbol{R}}_{t}={\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{
 南海トラフを震源とする
 津波シミュレーションのデータセットを作成
 
-- 断層面を1119個のメッシュに分割
+- 断層面を1119頂点のメッシュに分割
 - 断層すべり量を**Mudpy**を用いて計算
 *Karhunen-Loève展開に基づく*
 - **GeoClaw**を用いて
