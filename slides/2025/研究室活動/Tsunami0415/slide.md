@@ -180,10 +180,10 @@ paginate: true
 ## シナリオ重ね合わせ (Scenario Superposition)
 
 シナリオ $j$ における観測点 ($N_g$個) ・時間 ($N_t$ステップ) ごとの
-波高データを次のように表す ($\mathbf{x}$ は$N_g$次元のベクトル):
+波高データを次のように表す ($\boldsymbol{x}$ は$N_g$次元のベクトル):
 
 $$
-X_j = \left[ \mathbf{x}^j_{t_1}, \mathbf{x}^j_{t_2}, \cdots, \mathbf{x}^j_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
+X_j = \left[ \boldsymbol{x}^j_{t_1}, \boldsymbol{x}^j_{t_2}, \cdots, \boldsymbol{x}^j_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
 $$
 
 同様に、観測器による観測データを次のように表す ($\boldsymbol{y}$ は$N_g$次元のベクトル):
@@ -214,9 +214,9 @@ $$X_r =  \Phi_r D_r V_r^{\mathrm{T}}$$
 *以上の操作は動的モード分解 (DMD) と呼ばれる操作と思われるが、その詳細は追いきれなかった*
 時間$t$での$X_r$の各要素について、$D_r v_t^{j\mathrm{T}} = a_t^j$ とまとめ:
 
-$$\mathbf{x}_t^j \approx \Phi_r D_r v_t^{j\mathrm{T}} = \Phi_r a_t^j$$
+$$\boldsymbol{x}_t^j \approx \Phi_r D_r v_t^{j\mathrm{T}} = \Phi_r a_t^j$$
 
-以上より、$\boldsymbol{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係は次のように表せる:
+以上より、$\boldsymbol{y}_t$と$\boldsymbol{x}_t$ (=$\Phi_r a_t^j$)の関係は次のように表せる:
 
 $$\boldsymbol{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$$
 
@@ -252,7 +252,7 @@ $$X_r =  U_r D_r V_r^{\mathrm{T}}$$
 
 ## Online Phase
 
-> 目標とする$\boldsymbol{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係: $\boldsymbol{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$
+> 目標とする$\boldsymbol{y}_t$と$\boldsymbol{x}_t$ (=$\Phi_r a_t^j$)の関係: $\boldsymbol{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$
 
 誤差$\varepsilon_t$を考慮し、次のように表す:
 *$\varepsilon_t$は観測誤差や次元圧縮による情報欠落、シミュレーション自体の予測誤差など様々な要因を内包*
