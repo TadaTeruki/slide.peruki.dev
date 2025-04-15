@@ -102,9 +102,18 @@ paginate: true
 
 ---
 
-## 既存手法: 確率的手法
+## 既存手法: 確率的な津波予測
 
-*WIP: やる*
+- Blaser et al. (2011), Blaser et al. (2012), Tatsumi et al. (2014)
+
+不確実性を定量的に調べることができる
+
+シミュレーション時のパラメータが正しいことが前提であり
+正確に定める必要があること
+
+津波地震 (地震の規模に対して大きな津波を引き起こす地震) や
+沿岸での複雑な振る舞いなど
+説明の難しい不確実性に対しての対応が課題となる
 
 ---
 
@@ -144,7 +153,7 @@ paginate: true
 
 ---
 
-## 背景知識: 観測装置 (gauges) について
+**参考: 観測装置 (gauges)**
 
 災害に関わる自然現象の観測網が日本各地に存在
 
@@ -343,10 +352,141 @@ $${\widehat{\boldsymbol{y}}}_{t}={\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\w
 
 $${\boldsymbol{R}}_{t}={\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{P}}_{T}{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}$$
 
-*以上は$t = 1, \ldots, N_t$まで導出可能*
+*以上は$t = 1, \ldots, N_t$まで適用可能*
 
 ---
 
 **参考: T=150, T=600 (単位:秒) での実験結果**
 
+*Tが大きくなるほど信頼区間が絞られていることがわかる*
+
 ![w:1000](img/fig-7.webp)
+
+---
+
+# 南海トラフ沖を対象とした実験
+
+---
+
+## 津波シナリオの作成
+
+南海トラフを震源とする
+津波シミュレーションのデータセットを作成
+
+- 断層面を1119個のメッシュに分割
+- 断層すべり量を**Mudpy**を用いて計算
+*Karhunen-Loève展開に基づく*
+- **GeoClaw**を用いて
+非線形浅水方程式による
+3時間の津波の伝播を計算
+
+$N_s=2342$のシナリオを用意
+地震の規模はMw 8.1から9.1まで0.2刻み
+
+![bg right:40% w:500](img/nankai_81_000255_slip_dtopo.webp)
+
+---
+
+**参考: 断層すべり量**
+
+![w:800](img/slip.webp)
+
+地震によってプレート境界にある岩石が破壊しずれ動いた量
+東日本大震災では最大65m
+
+*https://www.jamstec.go.jp/j/pr/topics/quest-20170310/*
+
+---
+
+## 観測データの用意
+
+- DONET, NOWPHAS による$N_g=62$の観測データを用いる
+
+*実験では、特にGauge Aでの結果を観察*
+
+![w:800](img/gauges-donet.webp)
+
+---
+
+## Offline Phaseのハイパーパラメータ
+
+各成分のcontribution rateを計算し、大きいものを抽出
+*contribution rateは、特異値の2乗を全特異値の2乗で割ったもの*
+
+ある成分までのcontribution rateの合計は図のよう推移する
+$r=23$で99%に達することから、実験でもこの値を用いる
+
+
+![w:800](img/offline.webp)
+
+---
+
+<!-- _class: smartblockquote -->
+
+## Online Phase
+
+> $${\boldsymbol{\mu }}_{w}=\mathbf{0}, \quad{\boldsymbol{\Sigma }}_{w}=\alpha \boldsymbol{I}$$
+
+各シナリオに対する重みは
+最初すべて同じであり
+図のようになる
+
+*縦横軸は、$N_s=2342個の重みから
+無作為に選んだもの*
+
+![bg right:50% w:500](img/fig-4.webp)
+
+---
+
+Online Phaseを経て、図のように推移
+
+![w:800](img/fig-5.webp)
+
+---
+
+$T=600$ (単位:秒) における各シナリオへの重みの分布
+*負の数になる重みも存在*
+
+![w:800](img/fig-6.webp)
+
+---
+
+$T=150, T=600$ (単位:秒) におけるGauge Aの波高の予測値と実測値
+*(a)と(b)はそれぞれMw 8.1, Mw 9.1*
+*赤い網がけ部分は信頼区間 (±1σ) を示す*
+
+![w:800](img/fig-7.webp)
+
+*実験ではデータベース検索に基づく手法であるNomura et al. (2022)と比較*
+
+---
+
+<!-- _class: smartblockquote -->
+
+どちらも、実測値が信頼区間 (±1σ) に収まっている
+*予測値だけでなく信頼区間も提示することで、予測の過小評価を防ぐことが期待できる*
+
+ただし、比較的小さな津波での予測は未だ課題がある
+- $T=150$ では、信頼区間は最大波高の約3倍
+- 事前分布を見直す必要を示唆
+*本実験では、誤差の分布はガウス分布で、すべてのシナリオで均一となっている*
+*不確実性をより正確に記述するために、これらを見直す必要があるとしている*
+
+> 誤差の分布: ${\varepsilon }_{t}\sim \mathcal{N}\left(\mathbf{0},\,{\boldsymbol{\Sigma }}_{\varepsilon }\right)\quad$実験では${\boldsymbol{\Sigma }}_{\varepsilon }=\boldsymbol{I}$
+
+---
+
+![w:800](img/fig-8.webp)
+
+---
+
+![w:800](img/fig-9.webp)
+
+---
+
+![w:800](img/svd-1.webp)
+
+---
+
+
+![w:800](img/svd-2.webp)
