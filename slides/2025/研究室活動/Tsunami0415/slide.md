@@ -174,13 +174,13 @@ $$
 X_j = \left[ \mathbf{x}^j_{t_1}, \mathbf{x}^j_{t_2}, \cdots, \mathbf{x}^j_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
 $$
 
-同様に、観測器による観測データを次のように表す ($\mathbf{y}$ は$N_g$次元のベクトル):
+同様に、観測器による観測データを次のように表す ($\boldsymbol{y}$ は$N_g$次元のベクトル):
 $$
-Y = \left[ \mathbf{y}_{t_1}, \mathbf{y}_{t_2}, \cdots, \mathbf{y}_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
+Y = \left[ \boldsymbol{y}_{t_1}, \boldsymbol{y}_{t_2}, \cdots, \boldsymbol{y}_{t_{N_t}} \right] \in \mathbb{R}^{N_g \times N_t}
 $$
 
 観測データを、事前に作成した$N_s$シナリオ分のシミュレーション結果を用いて
-次のような線形結合で近似する → **目標: 各シナリオへの重み $\mathbf{w}\in \mathbb{R}^{N_s}$の導出**
+次のような線形結合で近似する → **目標: 各シナリオへの重み $\boldsymbol{w}\in \mathbb{R}^{N_s}$の導出**
 
 $$Y = \sum_{j=1}^{N_s} w_j X_j$$
 
@@ -188,24 +188,25 @@ $$Y = \sum_{j=1}^{N_s} w_j X_j$$
 
 ## 大まかな流れ
 
-- Offline Phase: $X$を低ランク近似により次元圧縮
-- Online Phase: 重み$\mathbf{w}$をベイズ推定により定める
+- Offline Phase: $X$を低ランク近似により次元圧縮/事前に処理
+- Online Phase: 重み$\boldsymbol{w}$を定める/観測データに合わせ実行
 ---
 
-## Offline Phase: $X$を低ランク近似により次元圧縮
+## Offline Phase
 
 特異値分解 (SVD) により、データの次元を$r$まで落とした$X$の低ランク近似$X_r$を導出:
 
 $$X_r =  \Phi_r D_r V_r^{\mathrm{T}}$$
 
-ここで、$\Phi_r$は時間に依存せず固定の値を取る *なぜそう言えるのかまでは追えませんでした*
+ここで、時間に依存しない行列 $\Phi_r$ が取れる
+*以上の操作は動的モード分解 (DMD) と呼ばれる操作と思われるが、その詳細は追いきれなかった*
 時間$t$での$X_r$の各要素について、$D_r v_t^{j\mathrm{T}} = a_t^j$ とまとめ:
 
 $$\mathbf{x}_t^j \approx \Phi_r D_r v_t^{j\mathrm{T}} = \Phi_r a_t^j$$
 
-以上より、$\mathbf{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係は次のように表せる:
+以上より、$\boldsymbol{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係は次のように表せる:
 
-$$\mathbf{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$$
+$$\boldsymbol{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$$
 
 ---
 
@@ -213,7 +214,7 @@ $$\mathbf{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$$
 
 データを以下のように分解 ($D$は対角行列で、一意に定まる):
 
-$$X = \Phi D V^{\mathrm{T}}$$
+$$X = U D V^{\mathrm{T}}$$
 
 各成分を、$D$が次のようになるよう並べ替える: *主成分は大きな特異値$\sigma$をとる*
 
@@ -229,35 +230,123 @@ D =
 $$
 
 $\sigma_{1:r}$以外の特異値を0とした$D_r$を用いて、$X$を近似する階数$r$の$X_r$を得る:
-*$X_r$は (フロベニウスノルムに基づくと) 元のデータを十分に近似することが知られている*
+*$X_r$は (フロベニウスノルムに基づくと) 元のデータを最もよく近似することが知られている*
 
-$$X_r =  \Phi_r D_r V_r^{\mathrm{T}}$$
+$$X_r =  U_r D_r V_r^{\mathrm{T}}$$
 
 ---
 
 <!-- _class: smartblockquote -->
 
-## Online Phase: 重み$\mathbf{w}$をベイズ推定により定める
+## Online Phase
 
-> 目標とする$\mathbf{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係: $\mathbf{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$
+> 目標とする$\boldsymbol{y}_t$と$\mathbf{x}_t$ (=$\Phi_r a_t^j$)の関係: $\boldsymbol{y}_t \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j$
 
 誤差$\varepsilon_t$を考慮し、次のように表す:
 *$\varepsilon_t$は観測誤差や次元圧縮による情報欠落、シミュレーション自体の予測誤差など様々な要因を内包*
 
-$$\mathbf{y}_t  \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j + \varepsilon_t$$
+$$\boldsymbol{y}_t  \approx \sum_{j=1}^{N_s} \Phi_r a^j_t w_j + \varepsilon_t$$
 
 ---
 
 ${\varepsilon }_{t}\sim \mathcal{N}\left(\mathbf{0},\,{\boldsymbol{\Sigma }}_{\varepsilon }\right)$と仮定し、行列形式で以下のように表す:
 
-$$\mathbf{y}_t = \Phi_r \mathbf{A}_t \mathbf{w} + \varepsilon_t$$
+$$\boldsymbol{y}_t = \Phi_r \mathbf{A}_t \boldsymbol{w} + \varepsilon_t$$
 
 ただし
 $${\boldsymbol{A}}_{t}=\left[\begin{array}{@{}cccc@{}}\hfill {a}_{t}^{j=1}\hfill & \hfill {a}_{t}^{j=2}\hfill & \hfill {\cdots}\hfill & \hfill {a}_{t}^{j={N}_{s}}\hfill \end{array}\right]\in {\mathbb{R}}^{r\times {N}_{s}}$$
 
 $$\boldsymbol{w}={\left\{\begin{array}{@{}cccc@{}}\hfill {w}^{j=1}\hfill & \hfill {w}^{j=2}\hfill & \hfill {\cdots}\hfill & \hfill {w}^{j={N}_{s}}\hfill \end{array}\right\}}^{\mathrm{T}}\in {\mathbb{R}}^{{N}_{s}}$$
 
-これは**ベイズ線形回帰**の標準的な形に落とし込まれている
+これはベイズ線形回帰の標準的な形となっている
 
 ---
 
+ベイズの公式より
+
+$$p(\boldsymbol{w} \mid \boldsymbol{y}_t) = \frac{p(\boldsymbol{y}_t \mid \boldsymbol{w}) p(\boldsymbol{w})}{p(\boldsymbol{y}_t)}$$
+
+重みの事前分布$p(\boldsymbol{w})$から、観測データ$\boldsymbol{y}_t$を用いて事後分布$p(\boldsymbol{w} \mid \boldsymbol{y}_t)$を定めていく
+
+ここで${\varepsilon }_{t}\sim \mathcal{N}\left(\mathbf{0},\,{\boldsymbol{\Sigma }}_{\varepsilon }\right)$より以下が定まる *詳細は省略*
+ただし、${\boldsymbol{\mu }}_{w}, {\boldsymbol{\Sigma }}_{w}$ は事前分布を定めるハイパーパラメータ
+
+$$p\left({\boldsymbol{y}}_{t}\vert \boldsymbol{w}\right)=\mathcal{N}\left({\boldsymbol{y}}_{t}\vert {\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\boldsymbol{w},\,{\boldsymbol{\Sigma }}_{\varepsilon }\right)$$
+
+$$p\left(\boldsymbol{w}\right)=\mathcal{N}\left(\boldsymbol{w}\vert {\boldsymbol{\mu }}_{w},\,{\boldsymbol{\Sigma }}_{w}\right).$$
+
+$$p\left({\boldsymbol{y}}_{t}\right)=\mathcal{N}\left({\boldsymbol{y}}_{t}\vert {\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{\mu }}_{w},\,{\boldsymbol{\Sigma }}_{\varepsilon }+{\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{\Sigma }}_{w}{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}\right).$$
+
+---
+
+これをベイズの公式に当てはめることで
+最終的にある時間の観測データ${\boldsymbol{y}}_{t}$を考慮した
+事後分布を次のように解析的に表せる:
+
+$$p\left(\boldsymbol{w}\vert {\boldsymbol{y}}_{t}\right)=\mathcal{N}\left(\boldsymbol{w}\vert {\widehat{\boldsymbol{w}}}_{t},\,{\boldsymbol{P}}_{t}\right)$$
+
+ただし
+
+$${\widehat{\boldsymbol{w}}}_{t}={\boldsymbol{\mu }}_{w}+{\boldsymbol{P}}_{t}{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}{\boldsymbol{\Sigma }}_{\varepsilon }^{-1}\left({\boldsymbol{y}}_{t}-{\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{\mu }}_{w}\right)$$
+
+$${\boldsymbol{P}}_{t}={\left({{\boldsymbol{\Sigma }}_{w}}^{-1}+{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}{\boldsymbol{\Sigma }}_{\varepsilon }^{-1}{\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{-1}$$
+
+*論文でもこの導出は割愛されており、他の文献の参照が必要*
+
+次の時間の観測データ${\boldsymbol{y}}_{t+1}$が得られた場合には
+上記で得られた$p\left(\boldsymbol{w}\vert {\boldsymbol{y}}_{t}\right)$を事前分布とし、同様の手順で事後分布を導出
+これを観測データの存在する時間範囲で繰り返し適用
+
+---
+
+## 逐次更新のアルゴリズム
+
+Required: $\boldsymbol{\Phi }_{r}$, $\boldsymbol{A}_{t}$ (Offline Phaseで事前に計算), $\boldsymbol{y}_{t}$ (観測データ)
+
+
+誤差項の共分散を次のように設定:
+
+$$
+{\boldsymbol{\Sigma }}_{\varepsilon }=\boldsymbol{I}
+$$
+
+事前分布の平均・共分散を次のように初期化:
+
+$${\boldsymbol{\mu }}_{w}=\mathbf{0}, \quad{\boldsymbol{\Sigma }}_{w}=\alpha \boldsymbol{I}$$
+
+---
+
+<!-- _class: smartblockquote -->
+
+$t=1,\ldots,T \ll {N}_{t}$ の範囲で、以下のように${\boldsymbol{\mu }}_{w}$と${\boldsymbol{\Sigma}}_{w}$を更新していく:
+
+> $\text{for}\;t=1,\ldots,T$:
+> $$
+> \begin{aligned}
+> {\boldsymbol{P}}_{t}&={\left({\boldsymbol{\Sigma }}_{w}^{-1}+{\left ({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}{\boldsymbol{\Sigma }}_{\varepsilon }^{-1}{\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{-1} \\
+> {\widehat{\boldsymbol{w}}}_{t}&={\boldsymbol{\mu }}_{w}+{\boldsymbol{P}}_{t}{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}{\boldsymbol{\Sigma }}_{\varepsilon }^{-1}\left({\boldsymbol{y}}_{t}-{\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{\mu }}_{w}\right) \\
+> {\boldsymbol{\Sigma }}_{w}&{\leftarrow}{\boldsymbol{P}}_{t} \\
+> {\boldsymbol{\mu }}_{w}&{\leftarrow}{\widehat{\boldsymbol{w}}}_{t}
+> \end{aligned}
+> $$
+
+*$T$は$t$の上限。観測データの取得可能な範囲に限られ、基本的に$N_t$より少なくなる*
+
+---
+
+最終的に得られた${\widehat{\boldsymbol{w}}}_{T}, {\boldsymbol{P}}_{T}$を用いて
+予測される津波の波高 $\widehat{\boldsymbol{y}}_{t}$ は次のように表される:
+
+$${\widehat{\boldsymbol{y}}}_{t}={\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\widehat{\boldsymbol{w}}}_{T}$$
+
+同様に、予測誤差の共分散行列は次のように表される:
+
+$${\boldsymbol{R}}_{t}={\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}{\boldsymbol{P}}_{T}{\left({\boldsymbol{\Phi }}_{r}{\boldsymbol{A}}_{t}\right)}^{\mathrm{T}}$$
+
+*以上は$t = 1, \ldots, N_t$まで導出可能*
+
+---
+
+**参考: T=150, T=600 (単位:秒) での実験結果**
+
+![w:1000](img/fig-7.webp)
