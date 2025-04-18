@@ -6,7 +6,7 @@ description: A1 1.4-1.7の資料です。
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2024-12-2
+date: 2024-12-02
 tags: FUNAI
 thumbnail: img/hiei.webp
 paginate: true

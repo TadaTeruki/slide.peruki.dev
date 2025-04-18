@@ -6,7 +6,7 @@ description: A4.1-A4.2の資料です。
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2025-1-13
+date: 2025-01-13
 tags: FUNAI
 thumbnail: img/okayama.webp
 paginate: true

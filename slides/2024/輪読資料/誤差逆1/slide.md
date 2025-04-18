@@ -6,7 +6,7 @@ description: ゼロから作るDeepLearning 5章 誤差逆伝播法 5.1-5.3の�
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2023-9-12
+date: 2023-09-12
 tags: FUNAI
 thumbnail: img/犬.webp
 ---

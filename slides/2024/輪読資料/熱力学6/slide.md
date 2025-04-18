@@ -6,7 +6,7 @@ description: 第6章 エントロピー 6-4, 6-5, 6-6 の資料です。
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2024-12-9
+date: 2024-12-09
 tags: FUNAI
 thumbnail: img/asahikawa.webp
 paginate: true

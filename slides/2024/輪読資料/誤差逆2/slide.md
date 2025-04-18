@@ -6,7 +6,7 @@ description: ゼロから作るDeepLearning 5章 誤差逆伝播法 5.4-5.8の�
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2023-9-30
+date: 2023-09-30
 tags: FUNAI
 thumbnail: img/keshiki.webp
 ---
@@ -555,4 +555,3 @@ $$\frac{\partial L}{\partial \mathbf{A}} = \mathbf{Y} - \mathbf{T}$$
  - 過学習を抑制する手法
    - Weight Decay, Dropoutについて理解
  - 重み・バイアス以外のパラメータ(ハイパーパラメータ)の調整方法
-

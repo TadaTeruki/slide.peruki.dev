@@ -6,7 +6,7 @@ description: 第4章 断熱操作とエネルギーの資料です。
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2024-11-5
+date: 2024-11-05
 tags: FUNAI
 thumbnail: img/tomo.webp
 ---

@@ -6,7 +6,7 @@ description: 第3章 等温操作とHelmholtzの自由エネルギー 3-7の資�
 math: mathjax
 author: Teruki TADA
 session: FUNAI輪読会
-date: 2024-11-5
+date: 2024-11-05
 tags: FUNAI
 thumbnail: img/kanku.webp
 ---
