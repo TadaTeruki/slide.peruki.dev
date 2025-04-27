@@ -12,7 +12,7 @@ thumbnail: img/sapporo.webp
 paginate: true
 ---
 
-# 大LT宣伝
+# 未来大×企業エンジニア 大LT2025 宣伝
 
 多田 瑛貴 (@PerukiFUN)
 
@@ -46,13 +46,9 @@ paginate: true
 
 ---
 
-# 大LTを振り返って
+# 未来大×企業エンジニア 大LT2025 を振り返って
 
 多田 瑛貴 (@PerukiFUN)
-
----
-
-# いや〜、いい会でしたね！
 
 ---
 
