@@ -2,12 +2,12 @@
 marp: true
 theme: peru24doc2
 title: PostGISで遊ぶゾヴ
-description: DB工学の課題を乾燥した間奏
+description: 長い🐘生、北海道の🐘い産業施設が気になることもある
 math: mathjax
 author: Teruki TADA
-session: 春LT
+session: マリカン春LT
 date: 2025-04-27
-tags: postgis, gis, database
+tags: GIS, mariconf
 thumbnail: img/muroran.webp
 paginate: true
 ---
@@ -55,49 +55,18 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 ---
 
-## よくある方法: Google Mapsのアプリ
+## よくある方法: Google Maps
 
-フィルタリングの利用
-手軽に情報を得る分には十分
-
-**欠点**
-
-- 大量・広範囲なデータは扱えない
-- マシンリーダブルな形式で
-データを取得できない
-*アプリ開発やデータ分析には使えない*
+手軽に情報を得る分には十分だが...
+データ分析はできない
+*APIを使っても、大量のデータをコピーして使うのは*
+*技術的に困難かつライセンス違反*
 
 ![bg left:35% w:400](img/nothern.webp)
 
----
-
-## よくある方法: Google Maps API
-
-**利点**
-
-- リアルタイムな情報も得られる
-- データの情報量が多く、信頼性も比較的高め
-*ただし、世界全体でそうとは限らない*
-
-**欠点**
-
-- あくまでアプリ開発が主な用途
-データ分析はできない
-*大量のデータを取得することは技術的に困難
-そもそもライセンス違反*
-- ライセンスに従う必要がある
-
-![bg left:35%](img/googleapi.png)
-
 
 ---
 
-大量のデータを扱う場合は、
-事前に地図データを一度手元で取り込んで
-そこから検索や計算を行いたい
-*グローバルなネットワークを介さないので**圧倒的に高速***
-
-データの利用も自由であってほしい
 
 そこで、オープンデータ **OpenStreetMap (OSM)** を利用
 *Open Database License(ODbL)に準拠*
@@ -123,7 +92,6 @@ OpenStreetMapベース
 
 ***Overpass Turbo**などの公開インスタンスも存在*
 *手軽に使うにはこれで十分*
-
 *参考: https://overpass-turbo.eu/*
 
 ![bg left:30% w:700](img/osmexp1.webp)
