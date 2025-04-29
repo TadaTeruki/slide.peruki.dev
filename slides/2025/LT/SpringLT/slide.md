@@ -1,7 +1,7 @@
 ---
 marp: true
 theme: peru24doc2
-title: PostGISで遊ぶゾヴ
+title: PostGISで遊ぶ
 description: 長い🐘生、北海道の🐘い産業施設が気になることもある
 math: mathjax
 author: Teruki TADA
