@@ -288,4 +288,6 @@ OSMの生データを使う場合
 DBMSそれぞれに特有の利点があるので
 色々試してみてみてください
 
-![bg right:40%](img/work2.webp)
+*右写真: 実際の開発の様子*
+
+![bg right:40%](img/cafe.webp)
