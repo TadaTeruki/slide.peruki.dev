@@ -6,7 +6,7 @@ description: Understanding Diffusion Models - A Unified Perspective
 math: mathjax
 author: Teruki TADA
 session: 研究室活動
-date: 2025-04-15
+date: 2025-05-13
 tags: 研究室活動
 thumbnail: img/fun.webp
 paginate: true
@@ -20,7 +20,7 @@ paginate: true
 *公立はこだて未来大学 システム情報科学部*
 *複雑系知能学科 複雑系コース*
 
-2025年5月12日 島内研究室
+2025年5月13日 島内研究室
 
 ![bg right:40%](img/fun.webp)
 
