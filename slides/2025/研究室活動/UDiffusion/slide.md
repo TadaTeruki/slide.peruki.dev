@@ -23,13 +23,15 @@ paginate: true
 2025年5月12日 島内研究室
 
 ![bg right:40%](img/fun.webp)
-<!-- 
+
 ---
 
 ## 書誌情報
 
 **Understanding Diffusion Models: A Unified Perspective**
-DOI: 10.48550/arXiv.2208.11970 (arXiv) -->
+DOI: 10.48550/arXiv.2208.11970 (arXiv) 
+
+著者: Calvin Luo
 
 ---
 
@@ -50,6 +52,7 @@ DOI: 10.48550/arXiv.2208.11970 (arXiv) -->
 - 以下は今回発表しません *多分次回？*
   - スコア関数の学習に基づく生成モデルとしての解釈
   - エンコーダーのパラメータを学習する方法
+  - 条件付き拡散モデルの実装
 
 ---
 
@@ -647,6 +650,23 @@ D_{KL}(q(x_{t-1} \mid x_t, x_0) \,\|\, p_\theta(x_{t-1} \mid x_t))
 \right]
 \end{align*}
 $$
+
+---
+
+# まとめ
+
+- VDMは、Markovian Hierarchical VAEの特別な場合
+  1. データの次元と潜在変数の次元は同じ
+  2. エンコーダは線形ガウスモデルとして
+  どの階層でも不変の構造
+  3. エンコーダのパラメータは階層ごとに異なる値を取り
+  最後の潜在変数の分布が
+  純粋なガウスノイズとなるよう定まる 
+- ここまででは、各$x_t$から$x_0$を復元する
+モデル($\hat{x}_\theta(x_t, t)$)の学習に帰着される
+
+
+![bg right:20%](img/fun.webp)
 
 ---
 
