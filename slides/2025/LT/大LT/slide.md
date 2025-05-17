@@ -198,8 +198,6 @@ CLIツールも提供されている
 ランダムに抽出
 4. 抽出した都市をつなぐ道を生成
 
-*具体的なクエリや仕様はこちらから
-https://github.com/TadaTeruki/pocket-rpg-map-generator/tree/main/dataset*
 
 ![bg right:40% vertical](img/columns.webp)
 ![bg](img/all.webp)
@@ -211,6 +209,7 @@ https://github.com/TadaTeruki/pocket-rpg-map-generator/tree/main/dataset*
 例えば北海道なら、札幌、函館、旭川、帯広、釧路など
 *江別や千歳も都市としては大きいが、上記に比べ強い拠点性があるとは言えない*
 
+
 ---
 
 基準は色々ある
@@ -218,10 +217,17 @@ https://github.com/TadaTeruki/pocket-rpg-map-generator/tree/main/dataset*
 
 ![w:1200](img/priorcity.webp)
 
+*具体的なクエリや仕様はこちらから
+https://github.com/TadaTeruki/pocket-rpg-map-generator/tree/main/dataset*
+
 ---
 
-![bg](img/kyoten1.webp)
-![bg](img/kyoten2.webp)
+<!-- _color: white -->
+
+**デモをご覧ください (QGIS)**
+
+![bg brightness:80%](img/kyoten1.webp)
+![bg brightness:80%](img/kyoten2.webp)
 
 ---
 
