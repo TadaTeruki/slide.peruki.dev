@@ -56,8 +56,8 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 国道5号の長さを測る
- *ちなみに、長さはだいたい280km (wikipedia情報)*
+ - 渡島半島を巡るデカい送電線の長さを...知りたい！
+ *ちなみに、ほぼ並行する国道5号の長さはだいたい280km (wikipedia情報)*
 
 ![w:1000](img/5.webp)
 
@@ -65,7 +65,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 半径数km以内の**特定の店舗**を探す
+ - 半径数km以内の**松屋**や**西松屋**を探したい
 
  ![w:1000](img/matsuya.webp)
 
