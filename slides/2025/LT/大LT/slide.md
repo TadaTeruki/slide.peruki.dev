@@ -62,7 +62,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 渡島半島を巡る**デカい送電線**の長さ
+ - 渡島半島を巡るデカい送電線の名前
  *ちなみに、ほぼ並行する国道5号の長さはだいたい280km (wikipedia情報)*
 
 ![w:1000](img/5.webp)
@@ -71,7 +71,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 半径数km以内の**松屋**や**西松屋**を探したい
+ - 半径数km以内の**松屋**や**西松屋**
 
  ![w:1000](img/matsuya.webp)
 
