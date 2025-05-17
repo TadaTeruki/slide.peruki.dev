@@ -18,11 +18,15 @@ section {
   background-blend-mode:lighten;
 }
 
+em {
+  font-style: normal;
+}
+
 </style>
 
 # オープンな地図データで遊ぼう
 
-**OpenStreetMap x PostGIS/DuckDB**
+**OpenStreetMap x DuckDB**
 
 2025年5月16日 大LT
 多田 瑛貴 (@PerukiFUN)
@@ -62,16 +66,16 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 渡島半島を巡るデカい送電線の名前
- *ちなみに、ほぼ並行する国道5号の長さはだいたい280km (wikipedia情報)*
+ - 渡島半島を巡る送電線の名前,長さ
 
 ![w:1000](img/5.webp)
+
 
 ---
 
 次のことが知りたいとき...
 
- - 半径数km以内の**松屋**や**西松屋**
+ - 半径数km以内の松屋や西松屋
 
  ![w:1000](img/matsuya.webp)
 
@@ -97,11 +101,14 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 *国土数値情報等のオープンデータと比較し
 様々な種類の情報をマルチモーダルに扱えるのも嬉しい点*
 
+データそのものはGeofabricからダウンロードできる
+*https://www.geofabrik.de/*
+
 ![bg right:25% w:200](img/osm.png)
 
 ---
 
-## データベース管理システム
+## 読み出し方: DBMS
 
 **DBMS: データベース管理システム** 
 大量のデータを効率的に管理し扱うシステム
@@ -119,27 +126,23 @@ OSMのデータをDBMSに取り込み
 地理空間情報を扱う機能や拡張を利用すれば
 DBMSだけで、**意外と色々なタスクがこなせる**
 
-- **測地系や地理情報の種類**など、地理空間情報特有の概念やデータ形式への
+- **測地系や地物の形式**など、地理空間情報特有の概念への対応
 - **距離・面積の計算や重なり判定、クラスタリング**など
+- **空間インデックス** *SQLのINDEXの要領で使える*
 
 ---
 
 ## 主な選択肢
 
 - サーバー型
-  - **PostgreSQL + PostGIS**
-  *機能が豊富、定番感が強い*
-  - MySQL など
+  - PostgreSQL + PostGIS
+  - MySQL
 - 組み込み型
-  - **SQLite**
-  *地理空間情報の取り扱いの基盤として
-  何かとよく使われる*
-  - **DuckDB**
-  *巨大なデータの集計クエリなど
-  列単位でまとめて扱うタスクに向く*
+  - SQLite
+  - DuckDB
 
-![bg right:30% w:300 vertical](img/postgis.png)
-![bg right:30% w:300](img/duckdb.png)
+![bg right:50% w:500 vertical](img/postgis.png)
+![bg right:50% w:400](img/duckdb.png)
 
 ---
 
@@ -149,13 +152,14 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 
 **組み込み型**
 一般には、アプリケーションに組み込んで使う
-*PostgreSQLのpsqlのようにCLIツールも提供され
-対話的に使うこともできる*
+CLIツールも提供されている
 
 
 **OLAP系**
 巨大なデータの集計クエリなど
 列単位でまとめて扱うタスクに向く
+
+*OSMのデータは非常に重いので有効*
 
 
 ![bg right:30% w:350](img/duckdb.png)
@@ -166,7 +170,8 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 
 **某捕獲系RPGのマップを作りたい**
 
-長い人生、地元がゲームに登場してほしい時もある
+長い人生、地元がゲームに
+登場してほしい時もある
 
 函館にあたる町は
 出てきていない気がする...
@@ -187,12 +192,15 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 ## 基本的な流れ
 
 1. OSMのデータを取得
-2. **DuckDBを使って**
+2. DuckDBを使って
 「拠点性の高い都市」のデータを
 都市データとして分析・抽出
 3. 選択範囲内の都市データを
 ランダムに抽出
 4. 抽出した都市をつなぐ道を生成
+
+*具体的なクエリや仕様はこちらから
+https://github.com/TadaTeruki/pocket-rpg-map-generator/tree/main/dataset*
 
 ![bg right:40% vertical](img/columns.webp)
 ![bg](img/all.webp)
@@ -222,46 +230,8 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 
 - 長い人生、地図から何らかの情報を
 いい感じに引き出す方法を紹介
-- DBMSによるデータ分析は面白い
 - それぞれのDBMSに特有の利点があるので
 用途に応じて選択するとよい
 - OpenStreetMap使おう
 
 ![bg right:30%](img/muroran.webp)
-
----
-
-## おまけ
-
----
-
-様々な属性情報を複合的に分析するため
-多様な情報がほしい ➡️ できればOSMの全データを参照したい
-
----
-
-## OSMのデータってとても重い
-地図データはGeofabricからダウンロードできる
-ダウンロードサイズは日本だけでも2.1GB
-
-*分析にDuckDBを使うモチベーションでもある*
-
-![bg right:35% w:400](img/geofabric.webp)
-
----
-
-## Parquet形式を使う
-
-**Apache Parquet**
-列指向データファイル形式
-DuckDBで直接読み出すことができる
-
-同じ形式のデータが並び圧縮がしやすく
-サイズが劇的に軽くなる場合が多い
-*研究活動で津波のシミュレーションデータを
-Parquetに変換したところ
-元データの10分の1くらいになった*
-
-OSMのデータはParquet形式に変換して扱うことに
-
-![bg right:35% w:400](img/parquet.webp)
