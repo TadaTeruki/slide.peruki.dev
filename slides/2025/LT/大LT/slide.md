@@ -26,7 +26,7 @@ em {
 
 # オープンな地図データで遊ぼう
 
-**OpenStreetMap x DuckDB**
+**OpenStreetMapをDBMSで扱う**
 
 2025年5月16日 大LT
 多田 瑛貴 (@PerukiFUN)
