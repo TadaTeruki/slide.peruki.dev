@@ -62,7 +62,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 次のことが知りたいとき...
 
- - 渡島半島を巡るデカい送電線の長さを...知りたい！
+ - 渡島半島を巡る**デカい送電線**の長さ
  *ちなみに、ほぼ並行する国道5号の長さはだいたい280km (wikipedia情報)*
 
 ![w:1000](img/5.webp)
