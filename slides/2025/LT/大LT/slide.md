@@ -14,7 +14,7 @@ thumbnail: img/all.webp
 <style>
 
 section {
-  background-image: url(img/muroran.webp), linear-gradient(to right, rgba(240,255,255,0.95), rgba(240,255,230,0.85));
+  background-image: url(img/muroran.webp), linear-gradient(100deg, rgba(220,255,255,0.9) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,0.8) 65%,rgba(230,255,180,0.9) 100%);
   background-blend-mode:lighten;
 }
 
@@ -209,6 +209,34 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 
 様々な属性情報を複合的に分析するため
 多様な情報がほしい ➡️ できればOSMの全データを参照したい
+
+---
+
+## OSMのデータってとても重い
+地図データはGeofabricからダウンロードできる
+ダウンロードサイズは日本だけでも2.1GB
+
+*分析にDuckDBを使うモチベーションでもある*
+
+![bg right:35% w:400](img/geofabric.webp)
+
+---
+
+## Parquet形式を使う
+
+**Apache Parquet**
+列指向データファイル形式
+DuckDBで直接読み出すことができる
+
+同じ形式のデータが並び圧縮がしやすく
+サイズが劇的に軽くなる場合が多い
+*研究活動で津波のシミュレーションデータを
+Parquetに変換したところ
+元データの10分の1くらいになった*
+
+OSMのデータはParquet形式に変換して扱うことに
+
+![bg right:35% w:400](img/parquet.webp)
 
 ---
 
