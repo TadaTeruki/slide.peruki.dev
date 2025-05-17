@@ -40,7 +40,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 - Mariners' Conference 設立/元部長
 - 技術は地理空間情報を軸に色々やってます
 *GIS、GUI (Webフロントエンド含む)、グラフィックス
-データ分析、機械学習 etc...*
+データ分析、機械学習 (生成モデル) etc...*
 
 ![bg right:25% vertical](img/icon.webp)
 ![bg right:25%](img/honnin.webp)
@@ -207,6 +207,28 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 
 ---
 
+![bg](img/kyoten1.webp)
+![bg](img/kyoten2.webp)
+
+---
+
+## まとめ
+
+- 長い人生、地図から何らかの情報を
+いい感じに引き出す方法を紹介
+- DBMSによるデータ分析は面白い
+- それぞれのDBMSに特有の利点があるので
+用途に応じて選択するとよい
+- OpenStreetMap使おう
+
+![bg right:30%](img/muroran.webp)
+
+---
+
+## おまけ
+
+---
+
 様々な属性情報を複合的に分析するため
 多様な情報がほしい ➡️ できればOSMの全データを参照したい
 
@@ -237,17 +259,3 @@ Parquetに変換したところ
 OSMのデータはParquet形式に変換して扱うことに
 
 ![bg right:35% w:400](img/parquet.webp)
-
----
-
-## まとめ
-
-- 長い人生、地図から何らかの情報を
-いい感じに引き出す方法を紹介
-- DBMSによるデータ分析は面白い
-- それぞれのDBMSに特有の利点があるので
-用途に応じて選択するとよい
-- OpenStreetMapは面白いので
-是非やってみてください
-
-![bg right:30%](img/muroran.webp)
