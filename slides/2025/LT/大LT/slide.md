@@ -47,6 +47,12 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 ---
 
+架空地図
+
+![](img/fmap.webp)
+
+---
+
 ## はじめに
 
 長い人生、**地図から何らかの情報をいい感じに引き出したい** 時がある 
