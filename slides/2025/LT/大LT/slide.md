@@ -47,7 +47,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 
 ---
 
-架空地図
+**デカ趣味: 架空地図**
 
 ![](img/fmap.webp)
 
