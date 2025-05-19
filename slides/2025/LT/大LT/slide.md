@@ -44,7 +44,7 @@ GitHub: TadaTeruki / X: @PerukiFUN / HP: peruki.dev
 - Mariners' Conference 設立/元部長
 - 技術は地理空間情報を軸に色々やってます
 *GIS、GUI (Webフロントエンド含む)、グラフィックス
-データ分析、機械学習 (生成モデル) etc...*
+データ分析、機械学習 etc...*
 
 ![bg right:25% vertical](img/icon.webp)
 ![bg right:25%](img/honnin.webp)
@@ -152,7 +152,6 @@ DBMSだけで、**意外と色々なタスクがこなせる**
 **組み込み型**
 一般には、アプリケーションに組み込んで使う
 CLIツールも提供されている
-
 
 **OLAP系**
 巨大なデータの集計クエリなど
