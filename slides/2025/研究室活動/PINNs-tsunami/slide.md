@@ -26,8 +26,7 @@ paginate: true
 **Physics Informed Newral Networks for tsunami inundation modeling**
 著者: Rüdiger Brecht, Elsa Cardoso-Bihlo, Alex Bihlo
 arXiv:2406.16236v1 (https://arxiv.org/abs/2406.16236v1)
-
-2024年7月23日発表
+2024年7月23日
 
 Journal of Computational Physics Volume 536, 1
 September 2025, 114066 に掲載 (予定？)
