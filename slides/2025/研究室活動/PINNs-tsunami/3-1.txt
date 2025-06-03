@@ -1,0 +1,33 @@
+Physics-informed neural networks (PINNs) have recently garnered considerable attention, yet they face two primary challenges:
+
+1. They require extensive training time.
+2. They are ineffective for long-time integration tasks due to convergence to trivial solutions.
+
+These challenges can be addressed by learning the solution operator instead of the direct solution. Specifically, if \$\mathcal{G}(\mathbf{u}\_0)\$ denotes the solution operator of system (1), then the solution can be expressed as:
+
+$$
+\mathbf{u}(t, \mathbf{x}) = \mathcal{G}(\mathbf{u}_0(\mathbf{x}))
+$$
+
+where \$\mathbf{u}\_0\$ is the initial condition.
+
+In practice, physics-informed deep operator networks (DeepONets) incorporate sampled initial conditions from a finite number of sensor points \${\mathbf{u}\_0(\mathbf{x}*s)}*{s=1}^{N\_s}\$ as additional inputs. The typical architecture for these networks comprises two sub-networks:
+
+* **Branch Network**: Processes the sampled initial condition inputs.
+* **Trunk Network**: Processes the independent variables \$(t, \mathbf{x})\$.
+
+Each network outputs a \$k\$-dimensional vector, denoted as:
+
+$$
+\mathbf{b}(\mathbf{u}_0(\mathbf{x}_1), \dots, \mathbf{u}_0(\mathbf{x}_{N_s})) = (b_1, \dots, b_k), \quad \mathbf{t}(t, \mathbf{x}) = (t_1, \dots, t_k)
+$$
+
+The operator representation is then approximated via the scalar product:
+
+$$
+\mathcal{G}(\mathbf{u}_0(\mathbf{x}))(t, \mathbf{x}) \approx \mathbf{b}(\mathbf{u}_0(\mathbf{x}_1), \dots, \mathbf{u}_0(\mathbf{x}_{N_s})) \cdot \mathbf{t}(t, \mathbf{x})
+$$
+
+This formulation is inspired by theoretical results from \cite{17}, indicating that any continuous nonlinear operator between two Banach spaces can be represented similarly. This parallels Cybenko's universal approximation theorem \cite{19} for single-hidden-layer neural networks. For more information, refer to \cite{17, 37, 65}.
+
+Recent developments have extended beyond the classical branch-trunk architecture. In this study, we adopt a version of NOMAD \cite{54}, where sampled initial conditions from sensor points are processed through a suitable branch network. The branch output is concatenated with the independent variables, forming inputs to a standard multi-layer perceptron (MLP), which then produces the final output dependent variables.
