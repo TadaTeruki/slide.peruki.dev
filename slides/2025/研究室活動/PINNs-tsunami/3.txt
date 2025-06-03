@@ -1,0 +1,64 @@
+Physics-informed neural networks were introduced in \cite{29} and later popularized in \cite{52}. We present a short overview here and refer to \cite{9,18,29,37,52} for a detailed presentation.
+
+Given a system of differential equations over the spatio-temporal domain \$\Omega = \[0, t\_f] \times \Omega\_s\$, where \$\Omega\_s \subset \mathbb{R}^d\$:
+
+$$
+\begin{aligned}
+\Delta_l(t, \mathbf{x}, \mathbf{u}^{(n)}) &= 0, \quad l = 1, \dots, L, \quad t \in [0, t_f], \mathbf{x} \in \Omega,\\
+\mathcal{I}_{l_i}(\mathbf{x}, \mathbf{u}^{(n_i)}\vert_{t=0}) &= 0, \quad l_i = 1, \dots, L_i, \quad \mathbf{x} \in \Omega,\\
+\mathcal{B}_{l_b}(t, \mathbf{x}, \mathbf{u}^{(n_b)}) &= 0, \quad l_b = 1, \dots, L_b, \quad t \in [0, t_f], \mathbf{x} \in \partial \Omega,
+\end{aligned}
+\tag{1}
+$$
+
+where \$t\$ is the time variable, \$\mathbf{x} = (x\_1, \dots, x\_d)\$ are spatial independent variables, \$\mathbf{u} = (u\_1, \dots, u\_q)\$ are dependent variables, and \$\mathbf{u}^{(n)}\$ denotes all derivatives of dependent variables with order up to \$n\$.
+
+For shallow-water equations with Dirichlet boundary conditions, the initial and boundary conditions become:
+
+$$
+\mathcal{I} = \mathbf{u}\vert_{t=0} - \mathbf{u}_0, \quad \mathcal{B} = \mathbf{u} - \mathbf{g}(t, \mathbf{x}),
+$$
+
+with given vector functions \$\mathbf{u}\_0(\mathbf{x})\$ and \$\mathbf{g}(t, \mathbf{x})\$.
+
+A physics-informed neural network parameterizes the global solution using a neural network \$\mathcal{N}\_{\boldsymbol{\theta}}\$:
+
+$$
+\mathbf{u}_{\boldsymbol{\theta}}(t, \mathbf{x}) = \mathcal{N}_{\boldsymbol{\theta}}(t, \mathbf{x}), \quad \mathbf{u}_{\boldsymbol{\theta}}(t, \mathbf{x}) \approx \mathbf{u}(t, \mathbf{x}).
+$$
+
+A finite set of collocation points is sampled to train the network by minimizing a composite loss function:
+
+$$
+\mathcal{L}(\boldsymbol{\theta}) = \mathcal{L}_\Delta(\boldsymbol{\theta}) + \gamma_i \mathcal{L}_i(\boldsymbol{\theta}) + \gamma_b \mathcal{L}_b(\boldsymbol{\theta}),
+\tag{2a}
+$$
+
+where individual loss terms are defined as:
+
+$$
+\begin{aligned}
+\mathcal{L}_\Delta(\boldsymbol{\theta}) &= \frac{1}{N_\Delta}\sum_{i=1}^{N_\Delta}\sum_{l=1}^{L}|\Delta_l(t^\Delta_i, \mathbf{x}^\Delta_i, \mathbf{u}^{(n)}_{\boldsymbol{\theta}}(t^\Delta_i, \mathbf{x}^\Delta_i))|^2, \\
+\mathcal{L}_i(\boldsymbol{\theta}) &= \frac{1}{N_i}\sum_{i=1}^{N_i}\sum_{l_i=1}^{L_i}|\mathcal{I}_{l_i}(t^i_i, \mathbf{x}^i_i, \mathbf{u}^{(n_i)}_{\boldsymbol{\theta}}(t^i_i, \mathbf{x}^i_i))|^2, \\
+\mathcal{L}_b(\boldsymbol{\theta}) &= \frac{1}{N_b}\sum_{i=1}^{N_b}\sum_{l_b=1}^{L_b}|\mathcal{B}_{l_b}(t^b_i, \mathbf{x}^b_i, \mathbf{u}^{(n_b)}_{\boldsymbol{\theta}}(t^b_i, \mathbf{x}^b_i))|^2,
+\end{aligned}
+\tag{2b}
+$$
+
+with \$\gamma\_i, \gamma\_b > 0\$ as loss weight parameters.
+
+Automatic differentiation computes required derivatives, making the method meshless and suitable for complex domains. The initial and boundary conditions can alternatively be enforced strictly ("hard constraint") via:
+
+$$
+\mathbf{u}_{\boldsymbol{\theta}}(t, \mathbf{x}) = F_i(t, \mathbf{x})\mathbf{u}_0(\mathbf{x}) + F_b(t, \mathbf{x}) + F_{nn}(t, \mathbf{x})\mathcal{N}_{\boldsymbol{\theta}}(t, \mathbf{x}),
+$$
+
+where \$F\_i\$, \$F\_b\$, \$F\_{nn}\$ ensure exact satisfaction of initial and boundary conditions.
+
+Two main challenges of physics-informed neural networks are slow training and difficulty with long-time integrations, addressed by learning the solution operator \$\mathcal{G}(\mathbf{u}\_0)\$ rather than the solution directly. Operator networks approximate this operator using sampled initial conditions and independent variables via branch and trunk sub-networks, represented as:
+
+$$
+\mathcal{G}(\mathbf{u}_0(\mathbf{x}))(t, \mathbf{x}) \approx \mathbf{b}(\mathbf{u}_0(\mathbf{x}_1),\dots,\mathbf{u}_0(\mathbf{x}_{N_s})) \cdot \mathbf{t}(t, \mathbf{x}).
+$$
+
+This structure generalizes universal approximation results for operators \cite{17,37,65}. In practice, deeper network architectures are employed, such as NOMAD \cite{54}, further enhancing the method's capabilities.

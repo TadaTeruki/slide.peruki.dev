@@ -235,6 +235,8 @@ Transformerのような深い層を持つモデルでは、ソフトマックス
 
 Multi-Head AttentionやFeed Forwardの出力に続く処理として導入
 
+![h:600](img/addnorm.webp)
+
 ---
 
 **Add: 残差接続**
