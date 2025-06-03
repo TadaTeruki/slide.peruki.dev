@@ -29,7 +29,12 @@ arXiv:2406.16236v1 (https://arxiv.org/abs/2406.16236v1)
 
 2024年7月23日発表
 
+Journal of Computational Physics Volume 536, 1
+September 2025, 114066 に掲載 (予定？)
+
 ---
+
+# 概要
 
 - 津波のモデリングと数値解析における現在の手法の概観と課題
 - 有効なデータ駆動アプローチとして
