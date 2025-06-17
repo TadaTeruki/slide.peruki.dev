@@ -55,7 +55,6 @@ paginate: true
 
 機械学習を用いた即時予測手法が注目されている。現状においては
 - 固定点での津波波形予測は Liu et al. (2021) や Rim et al. (2022) による研究が存在
-*4月に紹介したFujita et al. (2024)もその一つと言える*
 - **疎な観測値 or 予測値からの全体波形の再構成は未達成**としている
 
 ---
@@ -76,24 +75,6 @@ Attentionベースの手法を提案
 ![bg right:30% w:400](img/darts.webp)
 
 ---
-<!-- 
-## 研究の新規性
-
-**初のML-based全体波形再構成**
-- 従来: 固定点での予測のみ
-- 本研究: 疎な観測（数十点）→ 密な再構成（数十万点）
-
-**実用的な評価設定**
-- 訓練データにない震源での評価
-- 実際のDART buoy配置を使用
-- 津波データ同化手法（TDAM）との比較
-
-**Attention機構の活用**
-- 位置情報を特徴として扱う
-- 任意のメッシュ構造に対応
-- 長距離空間関係の即座な捕捉
-
---- -->
 
 # Generating Full-Field Training Data
 
@@ -105,19 +86,19 @@ $$\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} +
 
 $$\frac{\partial h}{\partial t} + \nabla \cdot (\mathbf{u}h) = 0$$
 
-(WIP: 必要なところを埋める)
+**変数の説明**
 
-- $z_b$: 
-- $f$: 
-- $u$: 水平方向の速度
-- $\beta$:
+- $z_b$: 海底地形の高さ (bathymetric height)
+- $f = 2\Omega\sin\phi$: コリオリ力
+- $\mathbf{u}$: 深度平均された水平方向の速度
+- $\beta = 0.015$: 重力補正係数 (self-attraction and loading effects)
 - $h$: fluid thickness (=(自由表面高)-(底面高)) *以降は「波高」と表現します*
 
 *語彙の確認にはこちらのページを参照: https://doc.comsol.com/5.6/doc/com.comsol.help.models.mph.shallow_water_equations/shallow_water_equations.html#669342*
 
 ---
 
-**データ規模** *SWEの数値計算で生成しモデルの学習に使用*
+**データ規模** *SWEの数値計算で作成しモデルの学習に使用*
 - 訓練用震源: 11個（日本周辺のM7.5以上の地震）
 - テスト用震源: 11個（訓練震源から20-100マイル離れた位置）
 - 時間解像度: 50秒間隔、4時間（289ステップ）
@@ -132,10 +113,6 @@ $$h_0(\mathbf{x}; \mathbf{x}_0) = -z_b + 5\exp(-(250\|\mathbf{x} - \mathbf{x}_0\
 
 - 最大初期波高は**5m**に固定
 波形の長さや振幅の様々なパターンへの対応はfuture workとしている
-
----
-
-(WIP: As this is the first study of the Senseiver in which...以降のくだりに言及)
 
 ---
 
@@ -162,7 +139,17 @@ Attentionでは計算が多項式時間で膨れ上がるため、途中でコ�
 
 ## Senseiver アーキテクチャ
 
-(WIP: 想定される入出力を説明。Methodsの最初)
+**疎な観測から密な再構成への問題設定**
+
+**入力**: 
+- 観測点位置 $\mathbf{x}^s = \{\mathbf{x}_1^s, \mathbf{x}_2^s, ..., \mathbf{x}_N^s\}$ (N個)
+- 観測値 $s = \{s_1, s_2, ..., s_N\}$ (波高データ)
+
+**出力**:
+- 任意位置 $\mathbf{x}^q = \{\mathbf{x}_1^q, \mathbf{x}_2^q, ..., \mathbf{x}_M^q\}$ (M個)
+- 予測値 $\hat{s} = \{\hat{s}_1, \hat{s}_2, ..., \hat{s}_M\}$ (予測波高)
+
+**典型的には** $M \gg N$ (数十の観測点 → 数十万の予測点)
 
 ---
 
@@ -190,7 +177,20 @@ $$\hat{s}(\mathbf{x}^q) = D(\mathbf{Z}, \mathbf{a}^q)$$
 
 ---
 
-(WIP: 損失を説明)
+## 学習・最適化
+
+**損失関数**: 平均二乗誤差 (MSE)
+$$\mathcal{L} = \sum (s(\mathbf{x}^q) - \hat{s}(\mathbf{x}^q))^2$$
+
+ここで
+$$\hat{s}(\mathbf{x}^q) = D(E(s(\mathbf{x}^s), P_E(\mathbf{x}^s)), P_E(\mathbf{x}^q))$$
+
+**最適化**: Adam optimizer使用
+**過学習防止**: 利用可能な訓練フレームの80%のみを使用 *これはどういうこと？*
+
+**ハイパーパラメータ**: 
+- クエリ点の数・順序
+- 使用する訓練データフレーム
 
 ---
 
@@ -317,7 +317,7 @@ $$\text{Error}(x,y,t) = \frac{|h(x,y,t) - \hat{h}(x,y,t)|}{\max(|h(x,y,t)|)}$$
 **Attention-Based Reconstruction of Full-Field Tsunami Waves from Sparse Tsunameter Networks** *McDugald et al., 2025*
 
 **現在の課題**
-- 限定的な海域（日本周辺のみ）
+- 限定的な海域
 - 理想化された初期条件
 - 早期段階での再構成精度
 - 時間的なスムーズさの問題
